@@ -1,13 +1,21 @@
-import { useState } from 'react'
-
+import { useEffect, useState } from 'react'
+import Subject from './components/Subject'
 import './styles/App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [x, setX] = useState();
+  useEffect(() => {
+    async function hello() {
+      const fellow = await window.api.onUpdate();
+      console.log(fellow[0].Crack)
+      setX(fellow[0])
+    }
+    hello()
+  },[])
   return (
     <>
-      hallo! :D
+    {x.Column1}
+      <Subject/>
     </>
   )
 }

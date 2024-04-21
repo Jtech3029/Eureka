@@ -1,5 +1,6 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import path from 'node:path'
+import { getNames } from "../models/testmngr";
 
 // The built directory structure
 //
@@ -13,20 +14,20 @@ import path from 'node:path'
 process.env.DIST = path.join(__dirname, '../dist')
 process.env.VITE_PUBLIC = app.isPackaged ? process.env.DIST : path.join(process.env.DIST, '../public')
 
-
 let win: BrowserWindow | null
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
 const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
 
 function createWindow() {
   win = new BrowserWindow({
-    menu: null,
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      devTools: true
     },
   })
-
+  win.webContents.openDevTools()
+  
   win.setMenuBarVisibility(false);
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
@@ -59,4 +60,13 @@ app.on('activate', () => {
   }
 })
 
-app.whenReady().then(createWindow)
+function getData() {
+  const x = getNames();
+  console.log(x)
+  return x;
+}
+
+app.whenReady().then(() => {
+  ipcMain.handle("onUpdate", getData)
+  createWindow()
+})
