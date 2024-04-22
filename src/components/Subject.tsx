@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 
-export default function Subject(props) {
+export default function Subject() {
     return (
         <>
             

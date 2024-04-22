@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Test(props) {
+export default function Test() {
     const [ minutes, setMinutes ] = useState(0);
     const [seconds, setSeconds ] =  useState(10);
     useEffect(()=>{

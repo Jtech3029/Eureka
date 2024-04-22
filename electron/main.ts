@@ -62,7 +62,6 @@ app.on('activate', () => {
 
 function getData() {
   const x = getNames();
-  console.log(x)
   return x;
 }
 

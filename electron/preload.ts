@@ -25,7 +25,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
 })
 
 contextBridge.exposeInMainWorld('api', {
-  onUpdate: (callback: any) => ipcRenderer.invoke('onUpdate')
+  onUpdate: () => ipcRenderer.invoke('onUpdate')
 
 })
 
