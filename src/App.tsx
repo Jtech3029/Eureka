@@ -13,15 +13,12 @@ function App() {
   useEffect(() => {
     async function hello() {
       const fellow = await window.api.onUpdate();
-      console.log(fellow[0].Crack)  
       setX(fellow[0])
     }
     hello()
   },[])
   return (
     <>
-    {x && x["Supplementary Material"]}
-    {x && x["Question"]}
       <Subject/>
     </>
   )
