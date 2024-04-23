@@ -9,8 +9,15 @@ interface langQuestion {
 
 export default function LangQuestion(props: langQuestion) {
     return (
-        <>
+        <div>
+            <div>
+            {props.supplement}
+
+            </div>
+            <div>
             {props.question}
-        </>
+
+            </div>
+        </div>
     )
 }
