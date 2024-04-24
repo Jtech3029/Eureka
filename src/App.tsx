@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Subject from './components/Subject'
+import Subject from './components/test/Subject'
 import './styles/App.css'
 import LangTest from './components/test/aplang/LangTest';
 
@@ -20,7 +20,7 @@ function App() {
   },[])
   return (
     <>
-    <LangTest questions={x}></LangTest>
+    <Subject questions={x}></Subject>
     </>
   )
 }
