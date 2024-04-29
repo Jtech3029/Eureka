@@ -16,23 +16,23 @@ export default function QuestionNavbar(props: QuestionNavbar) {
   }
 
   return (
-    <>
-      {questionArr.map((value) => {
-        return (
-          <div
-          //highlights the selected question
-            className={props.position == value - 1 ? "bg-indigo-500" : ""}
-            onClick={(e: React.MouseEvent) =>
-              props.changePosition(parseInt(e.currentTarget.innerHTML) - 1)
-            }
-          >
-            {value}
-          </div>
-        );
-      })}
-      <button onClick={props.endTest}>
-        End Test
-      </button>
-    </>
+    <div className="flex overflow-x-auto">
+      <div className="flex">
+        {questionArr.map((value) => {
+          return (
+            <div
+              //highlights the selected question
+              className={props.position == value - 1 ? "bg-indigo-500" : ""}
+              onClick={(e: React.MouseEvent) =>
+                props.changePosition(parseInt(e.currentTarget.innerHTML) - 1)
+              }
+            >
+              {value}
+            </div>
+          );
+        })}
+      </div>
+      <button onClick={props.endTest}>End Test</button>
+    </div>
   );
 }

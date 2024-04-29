@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Subject from './components/test/Subject'
+import Subject from './components/test/SubjectTest'
 import './styles/App.css'
 import LangTest from './components/test/aplang/LangTest';
 

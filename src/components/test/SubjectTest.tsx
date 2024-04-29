@@ -2,7 +2,6 @@ import { useState } from "react"
 import LangTest from "./aplang/LangTest";
 
 export default function Subject(props) {
-    const [questions, setQuestions] = useState();
     const [studentAnswers, setStudentAnswers] = useState();
     const [testEnded, setTestEnded] = useState(false);
     return (
@@ -10,6 +9,12 @@ export default function Subject(props) {
         {
             !testEnded &&
             <LangTest questions={props.questions} studentAnswers={setStudentAnswers} endTest={setTestEnded} />
+        }
+        {
+            testEnded &&
+            props.questions.map((data, index) => {
+                return data.correctAnswer == studentAnswers[index] ? "Correct" : "Incorrect"
+            })
         }
         </>
     )

@@ -3,21 +3,21 @@ import QuestionNavbar from "../QuestionNavbar";
 import LangQuestion from "./LangQuestion";
 
 interface langTest {
-  questions: Question[],
-  studentAnswers: (answers: String[] ) => void,
+  questions: Question[];
+  studentAnswers: (answers: String[]) => void;
   endTest: (end: boolean) => null;
 }
 
 interface Question {
-  title: String,
-  supplementaryMaterial: String,
-  question: String,
-  answerOne: String,
-  answerTwo: String,
-  answerThree: String,
-  answerFour: String,
-  answerFive: String,
-  correctAnswer: String
+  title: String;
+  supplementaryMaterial: String;
+  question: String;
+  answerOne: String;
+  answerTwo: String;
+  answerThree: String;
+  answerFour: String;
+  answerFive: String;
+  correctAnswer: String;
 }
 
 export default function LangTest(props: langTest) {
@@ -25,17 +25,16 @@ export default function LangTest(props: langTest) {
   const [currentQuestion, setCurrentQuestion] = useState(
     props.questions[position]
   );
-  const [answeredQuestion, setAnsweredQuestion] = useState<String[]>([]);
+  const [answeredQuestions, setAnsweredQuestion] = useState<String[]>([]);
 
   function handleAnswer(position: number, answer: String) {
-    const arr: String[] = [...answeredQuestion];
+    const arr: String[] = [...answeredQuestions];
     arr[position] = answer;
     setAnsweredQuestion(arr);
   }
 
   useEffect(() => {
     setCurrentQuestion(props.questions[position]);
-    console.log(answeredQuestion)
   });
 
   //Timer function
@@ -60,7 +59,10 @@ export default function LangTest(props: langTest) {
     };
   });
 
-  const endTest = () => props.endTest(true);
+  const endTest = () => {
+    props.studentAnswers(answeredQuestions);
+    props.endTest(true);
+  };
 
   return (
     <>
@@ -88,6 +90,7 @@ export default function LangTest(props: langTest) {
               currentQuestion.answerFour,
               currentQuestion.answerFive,
             ]}
+            currentAnswer={answeredQuestions[position]}
             choseAnswer={handleAnswer}
             position={position}
             correctAnswer={currentQuestion.correctAnswer}
