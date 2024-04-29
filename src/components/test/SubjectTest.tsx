@@ -1,5 +1,6 @@
 import { useState } from "react"
 import LangTest from "./aplang/LangTest";
+import TestOverview from "./TestOverview";
 
 export default function Subject(props) {
     const [studentAnswers, setStudentAnswers] = useState();
@@ -12,9 +13,7 @@ export default function Subject(props) {
         }
         {
             testEnded &&
-            props.questions.map((data, index) => {
-                return data.correctAnswer == studentAnswers[index] ? "Correct" : "Incorrect"
-            })
+            <TestOverview header={"AP Lang Practice Test"} questions={props.questions} studentAnswers={studentAnswers}></TestOverview>
         }
         </>
     )

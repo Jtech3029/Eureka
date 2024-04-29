@@ -17,12 +17,12 @@ export default function QuestionNavbar(props: QuestionNavbar) {
 
   return (
     <div className="flex overflow-x-auto">
-      <div className="flex">
+      <div className="flex overflow-y-auto">
         {questionArr.map((value) => {
           return (
             <div
               //highlights the selected question
-              className={props.position == value - 1 ? "bg-indigo-500" : ""}
+              className={"mr-8 cursor-pointer " + (props.position == value - 1 ? "bg-indigo-500" : "")}
               onClick={(e: React.MouseEvent) =>
                 props.changePosition(parseInt(e.currentTarget.innerHTML) - 1)
               }

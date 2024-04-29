@@ -41,13 +41,14 @@ export default function LangTest(props: langTest) {
   const [minutes, setMinutes] = useState(60);
   const [seconds, setSeconds] = useState(0);
   useEffect(() => {
+
     let myInterval = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);
       }
       if (seconds === 0) {
         if (minutes === 0) {
-          clearInterval(myInterval);
+          endTest()
         } else {
           setMinutes(minutes - 1);
           setSeconds(59);
