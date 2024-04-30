@@ -5,7 +5,7 @@ import LangQuestion from "./LangQuestion";
 interface langTest {
   questions: Question[];
   studentAnswers: (answers: String[]) => void;
-  endTest: (end: boolean) => null;
+  endTest: (end: boolean) => void;
 }
 
 interface Question {

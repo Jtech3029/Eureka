@@ -1,21 +1,51 @@
 {
   "name": "passion-project",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "An app that allows to take tests",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": { 
+        "extraResources": [
+          "./src/extraResources/test-questions.db"
+         ]
+       },
+       "makers": [
+        {
+          "name": "@electron-forge/maker-zip"
+        }
+      ]
+     }
+   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && electron-builder",
+    "build": "tsc && vite build && electron-builder --mac",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "rebuild": "electron-rebuild -f -w better-sqlite3"
+    "rebuild": "electron-rebuild -f -w better-sqlite3",
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
     "better-sqlite3": "^9.5.0",
+    "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron-forge/publisher-github": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
@@ -23,7 +53,6 @@
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "electron": "^29.1.4",
-    "electron-builder": "^24.13.3",
     "electron-rebuild": "^3.2.9",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",

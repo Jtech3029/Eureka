@@ -1,28 +1,23 @@
-import { useEffect, useState } from 'react'
-import Subject from './components/test/SubjectTest'
-import './styles/App.css'
-import LangTest from './components/test/aplang/LangTest';
+import Subject from "./components/test/SubjectTest";
+import "./styles/App.css";
+import { HashRouter, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
 
 declare global {
   interface Window {
-    api: any
+    api: any;
   }
 }
 
 function App() {
-  const [x, setX] = useState([]);
-  useEffect(() => {
-    async function hello() {
-      const fellow = await window.api.onUpdate();
-      setX(fellow)
-    }
-    hello()
-  },[])
   return (
-    <>
-    <Subject questions={x}></Subject>
-    </>
-  )
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/test" element={<Subject />} />
+      </Routes>
+    </HashRouter>
+  );
 }
 
-export default App
+export default App;

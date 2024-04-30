@@ -1,4 +1,5 @@
 const sqlite = require("better-sqlite3")
-const db = new sqlite("./test-questions.db");
 
-export default db;
+export default function getDatabase(path: String) {
+    return new sqlite(path);
+}
