@@ -16,6 +16,7 @@ process.env.VITE_PUBLIC = app.isPackaged
   ? process.env.DIST
   : path.join(process.env.DIST, "../public");
 
+const dbPath = path.join(app.getAppPath(), "models", "test-questions.db")
 let win: BrowserWindow | null;
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
@@ -34,7 +35,6 @@ function createWindow() {
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
-
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
   } else {
@@ -62,14 +62,8 @@ app.on("activate", () => {
 });
 
 function getData() {
-  let dbFile = path.join(
-    app.getAppPath(),
-    "src",
-    "extraResources",
-    "test-questions.db"
-  );
-  console.log(dbFile);
-  return getNames(dbFile);
+
+  return getNames(dbPath);
 }
 
 app.whenReady().then(() => {
