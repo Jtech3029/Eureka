@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import QuestionNavbar from "../QuestionNavbar";
 import LangQuestion from "./LangQuestion";
+import { useNavigate } from "react-router-dom";
 
 interface langTest {
   questions: Question[];
@@ -60,10 +61,41 @@ export default function LangTest(props: langTest) {
     };
   });
 
-  const endTest = () => {
+  const navigate = useNavigate();
+
+  const endTest = async () => {
     props.studentAnswers(answeredQuestions);
     props.endTest(true);
-    window.api.saveTest(props.questions, answeredQuestions, "APLang");
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const date = new Date();
+    const dateFormat =
+      months[date.getMonth()] +
+      "_" +
+      date.getDate() +
+      "_" +
+      date.getFullYear() +
+      "" +
+      date.getHours() +
+      "" +
+      date.getMinutes() +
+      "" +
+      date.getSeconds();
+
+    await window.api.saveTest(props.questions, answeredQuestions, "APLang" + dateFormat);
+    navigate("/test-overview/" + "APLang" + dateFormat);
   };
 
   return (
