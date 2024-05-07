@@ -63,6 +63,7 @@ export default function LangTest(props: langTest) {
   const endTest = () => {
     props.studentAnswers(answeredQuestions);
     props.endTest(true);
+    window.api.saveTest(props.questions, answeredQuestions, "APLang");
   };
 
   return (

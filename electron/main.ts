@@ -1,7 +1,8 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
 import { getNames } from "../models/testmngr";
-
+import getDatabase from "../models/dbmngr";
+import saveStudentTest from "../models/saveStudentTest";
 // The built directory structure
 //
 // ├─┬─┬ dist
@@ -62,11 +63,15 @@ app.on("activate", () => {
 });
 
 function getData() {
-
   return getNames(dbPath);
 }
 
+function handleSaveTest(event: any, testInfo: any) {
+  const db = getDatabase(path.join(app.getPath("userData"), "student-test.db"));
+  saveStudentTest(db, testInfo.testType, testInfo.questions, testInfo.studentAnswers) 
+}
 app.whenReady().then(() => {
+  ipcMain.on('save-test', handleSaveTest)
   ipcMain.handle("onUpdate", getData);
   createWindow();
 });
