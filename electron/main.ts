@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, globalShortcut } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
 import { getNames } from "../models/testmngr";
 import getDatabase from "../models/dbmngr";
@@ -81,12 +81,12 @@ function getData() {
   return getNames(dbPath);
 }
 
-function handleSaveTest(event: any, testInfo: any) {
+function handleSaveTest(_event: any, testInfo: any) {
   const db = getDatabase(path.join(app.getPath("userData"), "student-test.db"));
   saveStudentTest(db, testInfo.testType, testInfo.questions, testInfo.studentAnswers) 
 }
 
-function handleGetStudentTest(event: any, tableName: String) {
+function handleGetStudentTest(_event: any, tableName: String) {
   const db = getDatabase(path.join(app.getPath("userData"), "student-test.db"));
   let stmt = db.prepare("SELECT * FROM " + tableName + ";")
   return stmt.all();

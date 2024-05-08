@@ -1,11 +1,20 @@
-import { useNavigate } from "react-router-dom";
-
 interface TestOverviewProps {
-
+  question: Question,
+  return: () => void
 }
 
 interface Question {
- 
+  title: String;
+  supplementaryMaterial: String;
+  question: String;
+  answerOne: String;
+  answerTwo: String;
+  answerThree: String;
+  answerFour: String;
+  answerFive: String;
+  correctAnswer: String;
+  studentAnswer: String;
+  Unit: Number;
 }
 
 export default function QuestionOverview(props: TestOverviewProps) {

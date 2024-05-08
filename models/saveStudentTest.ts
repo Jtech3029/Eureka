@@ -1,8 +1,8 @@
 export default function saveStudentTest(
-  db,
+  db: any,
   testType: String,
-  questions,
-  studentAnswers
+  questions: any,
+  studentAnswers: String[]
 ) {
 
   const createTable =

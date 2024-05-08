@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import LangTest from "./aplang/LangTest";
-import TestOverview from "./TestOverview";
 
 
 export default function Subject() {
-  const [studentAnswers, setStudentAnswers] = useState<String[]>([]);
-  const [testEnded, setTestEnded] = useState(false);
+  const [_studentAnswers, setStudentAnswers] = useState<String[]>([]);
+  const [_testEnded, setTestEnded] = useState(false);
 
   const [questions, setQuestions] = useState([]);
   useEffect(() => {
@@ -18,20 +17,11 @@ export default function Subject() {
 
   return (
     <>
-      {!testEnded && (
         <LangTest
           questions={questions}
           studentAnswers={setStudentAnswers}
           endTest={setTestEnded}
         />
-      )}
-      {testEnded && (
-        <TestOverview
-          header={"AP Lang Practice Test"}
-          questions={questions}
-          studentAnswers={studentAnswers}
-        ></TestOverview>
-      )}
     </>
   );
 }

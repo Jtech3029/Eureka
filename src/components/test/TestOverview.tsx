@@ -2,12 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import QuestionOverview from "./QuestionOverview";
 
-interface TestOverviewProps {
-  questions: Question[];
-  studentAnswers: String[];
-  header: String;
-}
-
 interface Question {
   title: String;
   supplementaryMaterial: String;
@@ -24,7 +18,7 @@ interface Question {
 
 export default function TestOverview() {
   const [questions, setQuestions] = useState<Question[]>();
-  const [score, setScore] = useState<Number>();
+  const [score, setScore] = useState<number>();
   const [selectedQuestion, setSelectedQuestion] = useState(-1);
   const { testid } = useParams();
 
