@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, globalShortcut } from "electron";
 import path from "node:path";
 import { getNames } from "../models/testmngr";
 import getDatabase from "../models/dbmngr";
@@ -25,6 +25,7 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 function createWindow() {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+    title: "Eureka",
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       devTools: true,
@@ -54,6 +55,20 @@ app.on("window-all-closed", () => {
   }
 });
 
+// app.on('browser-window-focus', function () {
+//   globalShortcut.register("CommandOrControl+R", () => {
+//       console.log("CommandOrControl+R is pressed: Shortcut Disabled");
+//   });
+//   globalShortcut.register("F5", () => {
+//       console.log("F5 is pressed: Shortcut Disabled");
+//   });
+// });
+
+// app.on('browser-window-blur', function () {
+//   globalShortcut.unregister('CommandOrControl+R');
+//   globalShortcut.unregister('F5');
+// });
+
 app.on("activate", () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
@@ -70,8 +85,24 @@ function handleSaveTest(event: any, testInfo: any) {
   const db = getDatabase(path.join(app.getPath("userData"), "student-test.db"));
   saveStudentTest(db, testInfo.testType, testInfo.questions, testInfo.studentAnswers) 
 }
+
+function handleGetStudentTest(event: any, tableName: String) {
+  const db = getDatabase(path.join(app.getPath("userData"), "student-test.db"));
+  let stmt = db.prepare("SELECT * FROM " + tableName + ";")
+  return stmt.all();
+}
+
+function handleGetStudentTests() {
+  const db = getDatabase(path.join(app.getPath("userData"), "student-test.db"));
+  let stmt = db.prepare("SELECT name FROM sqlite_master where type='table';")
+  return stmt.all();
+}
+
 app.whenReady().then(() => {
   ipcMain.on('save-test', handleSaveTest)
   ipcMain.handle("onUpdate", getData);
+  ipcMain.handle("getStudentTest", handleGetStudentTest)
+  ipcMain.handle("getStudentTests", handleGetStudentTests)
+
   createWindow();
 });

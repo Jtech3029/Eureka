@@ -37,6 +37,8 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
 
 contextBridge.exposeInMainWorld("api", {
   onUpdate: () => ipcRenderer.invoke("onUpdate"),
+  getStudentTest: (test: String) => ipcRenderer.invoke("getStudentTest", test),
+  getStudentTests: () => ipcRenderer.invoke("getStudentTests"),
   saveTest: (questions: Question[], studentAnswers: String[], testType: String) =>
     ipcRenderer.send("save-test", {
       questions: questions,
