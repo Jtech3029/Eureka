@@ -65,8 +65,8 @@ export default function TestOverview() {
                       <div className="cursor-pointer" onClick={() => setSelectedQuestion(index)}>
                         Question {index + 1}:{" "}
                         {data.correctAnswer == data.studentAnswer
-                          ? "Correct"
-                          : "Incorrect"}
+                          ? (<>&#x2705;</>)
+                          : (<>&#10060;</>)}
                       </div>
                     </div>
                   );
